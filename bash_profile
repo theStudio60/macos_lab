@@ -5,27 +5,27 @@ PATH="$PATH:/usr/local/bin/"
 export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)
 export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH
-# ----------
-# S60 Lab
-# ----------
+
 NOW=$(date +.%d_%h_%Y-%H%M%S)
-#
 LOCALHOST=$(echo '127.0.0.1:')
 APACHE_PORT=$(cat /Applications/MAMP/conf/apache/httpd.conf | grep ^Listen | tr -d [A-Z][a-z][:space:] | cat)
 LOCALHOST_APACHE_ADDRESS=$(echo $LOCALHOST$APACHE_PORT)
+# ----------
+# S60 Lab
+# ----------
+# airport server :
 SULACODIR=$(echo '/Volumes/Data/')
-STUDIO60SULACODIR=$(echo '/Volumes/Data/STUDIO60')
-STUDIO60DIR=$(echo '~/STUDIO60/')
 alias sulaco='cd $SULACODIR ; ls ; open . '
+STUDIO60SULACODIR=$(echo '/Volumes/Data/STUDIO60')
 alias studio60_data='cd $STUDIO60SULACODIR ; ls ; open . '
+
+STUDIO60DIR=$(echo '~/STUDIO60/')
 alias studio60='cd ~/STUDIO60/  ; ls ; open . '
 alias GatsbyStart='gatsby develop -H 0.0.0.0 -p 8000'
-alias Editor='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
-#
-# WP_ADMIN_URL=$(echo /wplab/wp-admin/)
-# WP_LAB_URL=$(echo /wplab/wp-content/sites/)
+
+
 WP_LAB_DIR=$(echo /Applications/MAMP/htdocs/wplab/)
-#
+
 alias now="(echo $NOW)"
 alias mamp_init="/Applications/MAMP/MAMP.app/Contents/MacOS/MAMP"
 
@@ -42,6 +42,7 @@ alias wplab='cd ${WP_LAB_DIR} ; ls * '
 #
 #   1 : Resources
 #
+
 d=`date +%m-%d-%Y`
 function waiting {
 	sleep 1
@@ -70,9 +71,11 @@ export PS2="| => "
 
 
 # VSCODE
-# alias Editor="/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron"
+alias Editor='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
+
 # ATOM
 alias Atom="/Applications/Atom.app/Contents/MacOS/Atom"
+
 # WEB
 alias Firefox="/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox "
 alias Chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome "
@@ -238,7 +241,7 @@ ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name end
 #   6. NETWORKING
 #   ---------------------------
 
-#alias myip='curl ip.appspot.com'                    # myip:         Public facing IP Address
+alias myip='dig @resolver1.opendns.com ANY myip.opendns.com +short'   # myip: Public facing IP Address(from dns resolver )
 alias netCons='lsof -i'                             # netCons:      Show all open TCP/IP sockets
 alias flushDNS='dscacheutil -flushcache'            # flushDNS:     Flush out the DNS Cache
 alias lsock='sudo /usr/sbin/lsof -i -P'             # lsock:        Display open sockets
@@ -247,7 +250,7 @@ alias lsockT='sudo /usr/sbin/lsof -nP | grep TCP'   # lsockT:       Display only
 alias ipInfo0='ipconfig getpacket en0'              # ipInfo0:      Get info on connections for en0
 alias ipInfo1='ipconfig getpacket en1'              # ipInfo1:      Get info on connections for en1
 alias openPorts='sudo lsof -i | grep LISTEN'        # openPorts:    All listening connections
-alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rules inc/ blocked IPs
+# alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rules inc/ blocked IPs
 
 #   ii:  display useful host related informaton
 #   -------------------------------------------------------------------
