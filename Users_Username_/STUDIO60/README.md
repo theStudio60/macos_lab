@@ -1,1 +1,0 @@
-place this folder in your ~ -> (/Users/Username/STUDIO60/)
