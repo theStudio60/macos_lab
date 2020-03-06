@@ -5,15 +5,25 @@
 #
 ########################## 
 #
-# STUDIO60 Custom Wordpress Installation Script
-# this was written for yosemite.
-# So, first, you 'll need mamp and npm
-# Website will be installed in /Applications/MAMP/htdocs/wplab 
-# You Must have this dir in order to use this script.
+# STUDIO60 Custom Wordpress Installation Script, written and tested on yosemite.
+#
+# What the script do ?
 # THe script downloads a blank underscores theme
 # and install wpgulp inside of it . Then it creates
 # a file called STUDIO60_README.txt where the main informations about
 # this project are dropped, like urls and dirs. 
+# The new Website will be installed in /Applications/MAMP/htdocs/wplab,
+# so you need to create this dir in order to use the script.
+# 
+# Usage : 
+# First, you 'll need mamp, wp command line interface, and npm.
+# If it is the first time you use this
+# script, launch MAMP, go to localhost:8888/phpMyAdmin/, 
+# and create manually a db called wpdb and collation : utf8mb4_unicode_ci
+# Of course, before starting, make sure you have your MAMP stack opened,
+# because this script need to communicate with local php/sql)
+#
+# ./wp-install.light.MACOS.sh start
 #
 # Author : Fabien Dupont
 # https://github.com/fabien-dupont
@@ -26,11 +36,7 @@ APACHE_PORT=$(cat /Applications/MAMP/conf/apache/httpd.conf | grep ^Listen | tr 
 LOCALHOST_APACHE_ADDRESS=$(echo $LOCALHOST:$APACHE_PORT)
 WPLAB_DIR=$(echo '/Applications/MAMP/htdocs/wplab')
 
-PROJECT_NAME=''
-PROJECT_DIR=$(echo $WPLAB_DIR/$PROJECT_NAME)
-SITE_URL=$(echo $LOCALHOST_APACHE_ADDRESS/wplab/$PROJECT_NAME/)
-SITE_THEME_DIR=$(echo $PROJECT_DIR/wp-content/themes/sixty)
-SITE_THEME_URL=$(echo $SITE_URL:3000)
+#PROJECT_NAME=''
 
 # Database information
 DB_USER=$(echo 'root')
@@ -67,6 +73,8 @@ ask() {
 };
 
 wp_download() {
+  cd $PROJECT_DIR &&
+
   clear ;
   echo ''
   echo 'Download latest Wordpress release 😀 ';
@@ -79,7 +87,8 @@ wp_setup() {
   echo ''
   echo 'Configuration de la base de données';
   echo ''
-  wp core config --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASS --dbprefix=$PROJECT_NAME # we need to make it work without this : --skip-check
+  wp core config --dbname=wpdb --dbuser=root --dbpass=root --dbprefix=$PROJECT_NAME --skip-check
+  #wp core config --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASS --dbprefix=$PROJECT_NAME # we need to make it work without this : --skip-check
 };
 
 wp_install() {
@@ -98,31 +107,32 @@ wp_install_fr() {
   wp core language install fr_FR --activate --path=$PROJECT_DIR
 };
 
-sixty_theme_download() {
+theme_download() {
   clear ;
   echo ''
-  echo 'Download and installation of underscores theme named sixty, with sass'
+  echo 'Download and installation of underscores theme named theme_studio_soixante, with sass'
   echo ''
-  echo 'Now pay attention, in our wordpress workflow, the name of our themes is ALWAYS sixty'
+  echo 'Now pay attention, in our wordpress workflow, the name of our themes is ALWAYS theme_studio_soixante'
   echo ''
   sleep 1 ;
 
-  curl --silent  --data "underscoresme_generate=1&underscoresme_name=sixty&underscoresme_slug=sixty&underscoresme_author=Studio60&underscoresme_author_uri=https%3A%2F%2Fstudio60.ch&underscoresme_description=A+Website+Created+by+STUDIO60&underscoresme_sass=1"  https://underscores.me >> sixty.zip ;
-  unzip -q sixty.zip                                && 
-  mv    sixty wp-content/themes/                    &&
-  rm -Rf sixty.zip ;
+  curl --silent  --data "underscoresme_generate=1&underscoresme_name=theme_studio_soixante&underscoresme_slug=theme_studio_soixante&underscoresme_author=Studio60&underscoresme_author_uri=https%3A%2F%2Fstudio60.ch&underscoresme_description=A+Website+Created+by+STUDIO60&underscoresme_sass=1"  https://underscores.me >> theme_studio_soixante.zip ;
+  unzip -q theme_studio_soixante.zip                                && 
+  mv    theme_studio_soixante wp-content/themes/                    &&
+  rm -Rf theme_studio_soixante.zip ;
 };
 
-sixty_theme_screenshot() {
+theme_screenshot() {
   clear;
   echo ''
   echo 'Now we download the screenshot.png in github'
   echo ''
-  rm -Rf wp-content/themes/sixty/screenshot.png &&
-  curl --silent https://raw.githubusercontent.com/theStudio60/wplab/master/screenshot.png -O wp-content/themes/sixty/screenshot.png
+  rm -Rf wp-content/themes/theme_studio_soixante/screenshot.png &&
+  curl --silent https://raw.githubusercontent.com/theStudio60/wplab/master/screenshot.png -O screenshot.png ;
+  mv screenshot.png wp-content/themes/theme_studio_soixante/;
 };
 
-sixty_theme_config() {
+theme_config() {
 
   clear ;
   echo ''
@@ -131,25 +141,25 @@ sixty_theme_config() {
   echo 'The css files, js et img will be moved in assets'
   echo ''
 
-  mkdir wp-content/themes/sixty/trash               &&
-  mkdir wp-content/themes/sixty/assets              &&
-  mkdir wp-content/themes/sixty/assets/css          &&
-  mkdir wp-content/themes/sixty/assets/js           &&
-  mkdir wp-content/themes/sixty/assets/js/vendor    &&
-  mkdir wp-content/themes/sixty/assets/js/custom    &&
-  mkdir wp-content/themes/sixty/assets/img          &&
-  mkdir wp-content/themes/sixty/assets/img/raw      &&
+  mkdir wp-content/themes/theme_studio_soixante/trash               &&
+  mkdir wp-content/themes/theme_studio_soixante/assets              &&
+  mkdir wp-content/themes/theme_studio_soixante/assets/css          &&
+  mkdir wp-content/themes/theme_studio_soixante/assets/js           &&
+  mkdir wp-content/themes/theme_studio_soixante/assets/js/vendor    &&
+  mkdir wp-content/themes/theme_studio_soixante/assets/js/custom    &&
+  mkdir wp-content/themes/theme_studio_soixante/assets/img          &&
+  mkdir wp-content/themes/theme_studio_soixante/assets/img/raw      &&
 
-  mv wp-content/themes/sixty/sass/*  wp-content/themes/sixty/assets/css/        && 
-  mv wp-content/themes/sixty/js/*    wp-content/themes/sixty/assets/js/custom/  && 
-  mv wp-content/themes/sixty/sass    wp-content/themes/sixty/trash/             &&
-  mv wp-content/themes/sixty/js      wp-content/themes/sixty/trash/             &&
+  mv wp-content/themes/theme_studio_soixante/sass/*  wp-content/themes/theme_studio_soixante/assets/css/        && 
+  mv wp-content/themes/theme_studio_soixante/js/*    wp-content/themes/theme_studio_soixante/assets/js/custom/  && 
+  mv wp-content/themes/theme_studio_soixante/sass    wp-content/themes/theme_studio_soixante/trash/             &&
+  mv wp-content/themes/theme_studio_soixante/js      wp-content/themes/theme_studio_soixante/trash/             &&
 
   clear ;
   echo ''
-  echo 'Activation of the theme sixty'
+  echo 'Activation of the theme theme_studio_soixante'
   echo ''
-  wp theme activate sixty --path=$PROJECT_DIR 
+  wp theme activate theme_studio_soixante --path=$PROJECT_DIR 
 };
 
 wp_config() {
@@ -157,7 +167,7 @@ wp_config() {
   echo ''
   echo 'Delete default wordpress themes'
   echo ''
-  wp theme delete twentyfifteen twentysixteen twentyseventeen twentyeighteen twentynineteen twentytwenty --path=$PROJECT_DIR
+  wp theme delete twentyseventeen twentynineteen twentytwenty --path=$PROJECT_DIR
 	
   echo ''
   echo 'Delete Akismet plugin'
@@ -303,7 +313,7 @@ create_readme() {
   echo '/*'                                                             >> STUDIO60_README.txt 	 &&
   echo '# ----------------------------------------------------------'   >> STUDIO60_README.txt 	 &&
   echo '# '                                                             >> STUDIO60_README.txt 	 &&
-  echo '# Studio60 - Sixty THEME'                                       >> STUDIO60_README.txt 	 &&
+  echo '# Studio60 - theme_studio_soixante THEME'                                       >> STUDIO60_README.txt 	 &&
   echo "# Project name :'$PROJECT_NAME'"                                >> STUDIO60_README.txt 	 &&
   echo '# ----------------------------------------------------------'   >> STUDIO60_README.txt 	 &&
   echo '# '                                                             >> STUDIO60_README.txt 	 &&
@@ -338,7 +348,21 @@ gulp_install() {
 }
 
 install_project() {
-  cd $PROJECT_DIR &&
+
+ 
+  mkdir  $WPLAB_DIR/$PROJECT_NAME 
+  
+	echo -n;
+	echo "Création du site $PROJECT_NAME...";
+	echo -n;
+  
+  PROJECT_DIR=$(echo $WPLAB_DIR/$PROJECT_NAME)
+  
+  SITE_URL=$(echo $LOCALHOST_APACHE_ADDRESS/wplab/$PROJECT_NAME/)
+  SITE_THEME_DIR=$(echo $PROJECT_DIR/wp-content/themes/theme_studio_soixante)
+  SITE_THEME_URL=$(echo $SITE_URL:3000)
+
+
 
   wp_download &&
 
@@ -348,11 +372,11 @@ install_project() {
 
   wp_install_fr &&
 
-  sixty_theme_download && 
+  theme_download && 
 
-  sixty_theme_screenshot && 
+  theme_screenshot && 
 
-  sixty_theme_config && 
+  theme_config && 
 
   wp_config  &&
 
@@ -373,30 +397,21 @@ install_project() {
   echo "Happy hacking ❤️ " 
   echo ''
 }
-build_project() {
-	sleep 1;
-	clear
-	mkdir $PROJECT_NAME;
-	echo -n;
-	echo "Création du site $PROJECT_NAME...";
-	echo -n;
-	sleep 1;  
-};
-
+ 
 choose_project_name() {
 	if [ "$PROJECT_NAME" = "" ]; then
   PROJECT_NAME=$(echo wp_project$NOW) 
-  build_project &&
+ 
   install_project 
 	else
-  build_project &&
+  
   install_project 
 	fi
 };
 
 do_start() {
 	clear
-	cd $WPLAB_DIR;
+	
 	if ask "Create a new Wordpress site ?" Y; then
   read -p "what is the name of your project ? spaces and special characters not allowed..." PROJECT_NAME
   choose_project_name 
