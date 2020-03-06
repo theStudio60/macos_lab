@@ -6,8 +6,10 @@
 ########################## 
 #
 # STUDIO60 Custom Wordpress Installation Script
-# this was written for yosemite with MAMP, and wp-cli
-
+# this was written for yosemite.
+# So, first, you 'll need mamp and npm
+# Website will be installed in /Applications/MAMP/htdocs/wplab 
+# You Must have this dir in order to use this script.
 # THe script downloads a blank underscores theme
 # and install wpgulp inside of it . Then it creates
 # a file called STUDIO60_README.txt where the main informations about
@@ -147,9 +149,7 @@ sixty_theme_config() {
   echo ''
   echo 'Activation of the theme sixty'
   echo ''
-  wp theme activate sixty --path=$PROJECT_DIR &&
-  
-  
+  wp theme activate sixty --path=$PROJECT_DIR 
 };
 
 wp_config() {
