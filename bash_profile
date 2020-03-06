@@ -1,11 +1,11 @@
 # ----------
-# 0 : PATH 
+# 0 : PATHS AND CONSTANTS
 # ----------
 PATH="$PATH:/usr/local/bin/"
 export PATH="/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:$PATH"
 PHP_VERSION=$(ls /Applications/MAMP/bin/php/ | sort -n | tail -1)
 export PATH=/Applications/MAMP/bin/php/${PHP_VERSION}/bin:$PATH
-
+CURRUSER=$(echo $USER)
 NOW=$(date +.%d_%h_%Y-%H%M%S)
 LOCALHOST=$(echo '127.0.0.1:')
 APACHE_PORT=$(cat /Applications/MAMP/conf/apache/httpd.conf | grep ^Listen | tr -d [A-Z][a-z][:space:] | cat)
@@ -48,33 +48,16 @@ function waiting {
 	sleep 1
 }
 #
-spinner()
-{
-	local pid=$!
-	local delay=0.4
-	local spinstr='|/-\'
-	while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
-		local temp=${spinstr#?}
-		printf " [%c]  " "$spinstr"
-		local spinstr=$temp${spinstr%"$temp"}
-		sleep $delay
-		printf "\b\b\b\b\b\b"
-	done
-	printf "    \b\b\b\b"
-}
-#
 # Prompt
 #
 export PS1="________________________________________________________________________________\n
 | \w @ \h (\u) \n| => "
 export PS2="| => "
 
-
 # VSCODE
 alias Editor='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
-
 # ATOM
-alias Atom="/Applications/Atom.app/Contents/MacOS/Atom"
+# alias Atom="/Applications/Atom.app/Contents/MacOS/Atom"
 
 # WEB
 alias Firefox="/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox "
@@ -102,34 +85,6 @@ alias radioRTS1='vlc http://stream.srg-ssr.ch/m/la-1ere/aacp_32'
 alias radioCouleur3='vlc http://stream.srg-ssr.ch/m/couleur3/aacp_32'
 alias radioDNB='vlc http://dnbstation.com:8000/'
 alias radioCB='vlc http://contrabanda.org/audio/contrabanda.m3u'
-#   -----------------------------
-#   2. MAKE TERMINAL BETTER
-#   -----------------------------
-alias delete='rm -Rf'
-alias cp='cp -iv'                           # Preferred 'cp' implementation
-alias mv='mv -iv'                           # Preferred 'mv' implementation
-alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
-alias less='less -FSRXc'                    # Preferred 'less' implementation
-cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
-alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
-alias ..='cd ../'                           # Go back 1 directory level
-alias f='open -a Finder ./'                 # f: Opens current directory in MacOS Finder
-alias ~="cd ~"                              # ~:            Go Home
-alias c='clear'                             # c:            Clear terminal display
-alias which='type -all'                     # which:        Find executables
-alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
-alias show_options='shopt'                  # Show_options: display bash options settings
-alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
-alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
-mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
-trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
-ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
-alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
-alias ttop="top -R -F -s 10 -o rsize"
-#   lr:  Full Recursive Directory Listing
-#   ------------------------------------------
-alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
 #   -------------------------------
 #   3. FILE AND FOLDER MANAGEMENT
 #   -------------------------------
