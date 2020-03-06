@@ -10,6 +10,18 @@ NOW=$(date +.%d_%h_%Y-%H%M%S)
 LOCALHOST=$(echo '127.0.0.1:')
 APACHE_PORT=$(cat /Applications/MAMP/conf/apache/httpd.conf | grep ^Listen | tr -d [A-Z][a-z][:space:] | cat)
 LOCALHOST_APACHE_ADDRESS=$(echo $LOCALHOST$APACHE_PORT)
+
+# VSCODE
+alias Editor='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
+# ATOM
+# alias Atom="/Applications/Atom.app/Contents/MacOS/Atom"
+
+# WEB_Browsers
+alias Firefox="/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox "
+alias Chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome "
+alias Safari="/Applications/Safari.app/Contents/MacOS/Safari "
+alias Opera="/Applications/Opera.app/Contents/MacOS/Opera"
+
 # ----------
 # S60 Lab
 # ----------
@@ -26,9 +38,9 @@ alias studio60_data='cd $STUDIO60_AIRPORT ; ls ; open . '
 alias GOTO_60='cd ~/STUDIO60/  ; ls -lash '
 alias GOTO_wordpress='cd ~/STUDIO60/wordpress ; ls -lash ;'
 alias GOTO_gatsby='cd ~/STUDIO60/gatsby ; ls -lash ;'
-alias GOTO_api ='cd ~/STUDIO60/api  ; ls -lash ;' 
-alias GOTO_nextjs ='cd ~/STUDIO60/nextjs  ; ls -lash ;' 
-alias GOTO_sandbox ='cd ~/STUDIO60/sandbox  ; ls -lash ;' 
+alias GOTO_api='cd ~/STUDIO60/api  ; ls -lash ;' 
+alias GOTO_nextjs='cd ~/STUDIO60/nextjs  ; ls -lash ;' 
+alias GOTO_sandbox='cd ~/STUDIO60/sandbox  ; ls -lash ;' 
 
 # Some commands
 alias START_GATSBY='gatsby develop -H 0.0.0.0 -p 8000'
@@ -37,7 +49,7 @@ alias START_MAMP="/Applications/MAMP/MAMP.app/Contents/MacOS/MAMP"
 # WORDPRESS WORKFLOW
 WP_LAB=$(echo /Applications/MAMP/htdocs/wplab/)
 
-alias wplab='cd ${WP_LAB} ; ls * '
+alias wplab='cd ${WP_LAB} ; ls'
 alias GOTO_WPLAB='wplab'
 alias FINDER_WPLAB='GOTO_WPLAB &&  open .'
 
@@ -50,6 +62,7 @@ httpHeaders () { /usr/bin/curl -I -L $@ ; }
 
 # httpDebug:  Download a web page and show info on what took time
 httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
+
 
 #
 #
@@ -67,16 +80,6 @@ export PS1="____________________________________________________________________
 | \w @ \h (\u) \n| => "
 export PS2="| => "
 
-# VSCODE
-alias Editor='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
-# ATOM
-# alias Atom="/Applications/Atom.app/Contents/MacOS/Atom"
-
-# WEB_Browsers
-alias Firefox="/Applications/FirefoxDeveloperEdition.app/Contents/MacOS/firefox "
-alias Chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome "
-alias Safari="/Applications/Safari.app/Contents/MacOS/Safari "
-alias Opera="/Applications/Opera.app/Contents/MacOS/Opera"
  
 #   -------------------------------
 #   3. FILE AND FOLDER MANAGEMENT
@@ -228,4 +231,4 @@ alias openPorts='sudo lsof -i | grep LISTEN'        # openPorts:    All listenin
 #   cleanupLS:  Clean up LaunchServices to remove duplicates in the "Open With" menu
 #   -----------------------------------------------------------------------------------
     alias cleanupLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
- 
+
