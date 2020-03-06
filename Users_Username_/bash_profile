@@ -53,7 +53,7 @@ alias wplab='cd ${WP_LAB} ; ls'
 alias GOTO_WPLAB='wplab'
 alias FINDER_WPLAB='GOTO_WPLAB &&  open .'
 
-alias WPLAB_NEW_LIGHT='cd ~/STUDIO60/wordpress/ ; curl --silent https://raw.githubusercontent.com/theStudio60/wplab/master/wp-install.light.MACOS.sh > wp-install.sh ; chmod +x wp-install.sh ; ./wp-install start;'
+alias WPLAB_NEW_LIGHT='cd ~/STUDIO60/wordpress/ ; curl --silent https://raw.githubusercontent.com/theStudio60/wplab/master/wp-install.light.MACOS.sh > wp-install.sh ; chmod +x wp-install.sh ; ./wp-install.sh start;'
 
 alias UPDATE_BASH=' curl --silent https://raw.githubusercontent.com/theStudio60/macos_lab/master/Users_Username_/bash_profile > ~/bash_profile ; '
 
