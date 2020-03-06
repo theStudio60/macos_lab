@@ -13,31 +13,42 @@ LOCALHOST_APACHE_ADDRESS=$(echo $LOCALHOST$APACHE_PORT)
 # ----------
 # S60 Lab
 # ----------
+# variables
 # airport server :
-SULACODIR=$(echo '/Volumes/Data/')
-alias sulaco='cd $SULACODIR ; ls ; open . '
-STUDIO60SULACODIR=$(echo '/Volumes/Data/STUDIO60')
-alias studio60_data='cd $STUDIO60SULACODIR ; ls ; open . '
-
+AIRPORT=$(echo '/Volumes/Data/')
+STUDIO60_AIRPORT=$(echo '/Volumes/Data/STUDIO60')
 STUDIO60DIR=$(echo '~/STUDIO60/')
-alias studio60='cd ~/STUDIO60/  ; ls ; open . '
-alias GatsbyStart='gatsby develop -H 0.0.0.0 -p 8000'
 
+alias sulaco='cd $AIRPORT ; ls ; open . '
+alias studio60_data='cd $STUDIO60_AIRPORT ; ls ; open . '
 
-WP_LAB_DIR=$(echo /Applications/MAMP/htdocs/wplab/)
+# ~/STUDIO60/
+alias GOTO_60='cd ~/STUDIO60/  ; ls -lash '
+alias GOTO_wordpress='cd ~/STUDIO60/wordpress ; ls -lash ;'
+alias GOTO_gatsby='cd ~/STUDIO60/gatsby ; ls -lash ;'
+alias GOTO_api ='cd ~/STUDIO60/api  ; ls -lash ;' 
+alias GOTO_nextjs ='cd ~/STUDIO60/nextjs  ; ls -lash ;' 
+alias GOTO_sandbox ='cd ~/STUDIO60/sandbox  ; ls -lash ;' 
 
-alias now="(echo $NOW)"
-alias mamp_init="/Applications/MAMP/MAMP.app/Contents/MacOS/MAMP"
+# Some commands
+alias START_GATSBY='gatsby develop -H 0.0.0.0 -p 8000'
+alias START_MAMP="/Applications/MAMP/MAMP.app/Contents/MacOS/MAMP"
 
-alias 60_wp='cd ~/STUDIO60/wordpress ; ls -lash ;'
-alias 60_hugo='cd ~/STUDIO60/hugo ; ls -lash ;'
-alias 60_wp_new='~/STUDIO60/wordpress/install-script.sh start;'
+# WORDPRESS WORKFLOW
+WP_LAB=$(echo /Applications/MAMP/htdocs/wplab/)
 
-# alias wpcli='php /Applications/MAMP/bin/php/${PHP_VERSION}/bin/wp-cli.phar'
-alias wplab_finder=' cd ${WP_LAB_DIR} &&  open .'
-alias wplab_webview="Firefox  -P "DEVLAB" -url '${LOCALHOST_APACHE_ADDRESS}${WP_LAB_URL}'"
-alias wplab_init=' mamp_init && wplab_webview '
-alias wplab='cd ${WP_LAB_DIR} ; ls * '
+alias wplab='cd ${WP_LAB} ; ls * '
+alias GOTO_WPLAB='wplab'
+alias FINDER_WPLAB='GOTO_WPLAB &&  open .'
+
+alias WPLAB_NEW_LIGHT='cd ~/STUDIO60/wordpress/ ; curl --silent https://raw.githubusercontent.com/theStudio60/wplab/master/wp-install.light.MACOS.sh > wp-install.sh ; chmod +x wp-install.sh ; ./wp-install start;'
+
+# httpHeaders:      Grabs headers from web page
+httpHeaders () { /usr/bin/curl -I -L $@ ; }             
+
+# httpDebug:  Download a web page and show info on what took time
+httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
+
 #
 #
 #   1 : Resources
@@ -250,18 +261,11 @@ alias mountReadWrite='/sbin/mount -uw /'    # mountReadWrite:   For use when boo
 #   8. WEB DEVELOPMENT
 #   ---------------------------------------
 
-alias apacheEdit='sudo edit /etc/httpd/httpd.conf'      # apacheEdit:       Edit httpd.conf
-alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Restart Apache
-alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file
-alias herr='tail /var/log/httpd/error_log'              # herr:             Tails HTTP error logs
-alias apacheLogs="less +F /var/log/apache2/error_log"   # Apachelogs:   Shows apache error logs
-
-httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grabs headers from web page
-
-#   httpDebug:  Download a web page and show info on what took time
-#   -------------------------------------------------------------------
-    httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
-
+# alias apacheEdit='sudo edit /etc/httpd/httpd.conf'      # apacheEdit:       Edit httpd.conf
+# alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Restart Apache
+# alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file
+# alias herr='tail /var/log/httpd/error_log'              # herr:             Tails HTTP error logs
+# alias apacheLogs="less +F /var/log/apache2/error_log"   # Apachelogs:   Shows apache error logs
 
 #   ---------------------------------------
 #   9. REMINDERS & NOTES
