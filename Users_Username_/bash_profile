@@ -46,6 +46,7 @@ alias GOTO_sandbox='cd ~/STUDIO60/sandbox  ; ls -lash ;'
 alias START_GATSBY='gatsby develop -H 0.0.0.0 -p 8000'
 alias START_MAMP="/Applications/MAMP/MAMP.app/Contents/MacOS/MAMP"
 alias NEXTJS_NEW=" GOTO_nextjs && clear && npm init next-app"
+alias NEXTJS_START="npm run dev"
 # WORDPRESS WORKFLOW
 WP_LAB=$(echo /Applications/MAMP/htdocs/wplab/)
 
